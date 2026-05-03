@@ -1,4 +1,5 @@
 # FM Dashboard 前端教学大纲 v2
+
 ## React 18 + TypeScript + Tailwind + Redux + Router
 
 ---
@@ -39,21 +40,21 @@ React 18 · TypeScript · Vite · Tailwind CSS v3 · shadcn/ui · Redux Toolkit 
 
 ## 三、学习进度总览
 
-| 阶段 | 核心概念 | 构建 UI | TypeScript 要点 | 面试题 | 状态 |
-|------|---------|---------|----------------|--------|------|
-| 0 | 项目初始化 + GitHub | 空项目跑起来 | TS 基础类型 + tsconfig | — | ⬜ |
-| 1 | JSX + Tailwind | 静态侧边栏 | interface / type / Props类型 | Q1 Q3 | ⬜ |
-| 2 | useState + 事件 | 侧边栏折叠+激活 | 泛型useState / 事件类型 | Q4 Q9 Q10 Q50 | ⬜ |
-| 3 | Props + 组件组合 | Header + TabNav + Card | Props interface / children类型 | Q2 Q5 Q6 Q20 Q35 | ⬜ |
-| 4 | useEffect + 异步 | NextMatchCard + FixtureList | async/await类型 / AbortController | Q11 Q13 Q36 Q40 | ⬜ |
-| 5 | useRef + useId | 搜索框 + 表单控件 | RefObject类型 / 受控vs非受控 | Q7 Q14 Q18 | ⬜ |
-| 6 | useContext + 主题 | 暗色/亮色切换 | Context泛型 / 自定义Hook类型 | Q8 Q32 Q43 | ⬜ |
-| 7 | useReducer + 复杂状态 | 收件箱过滤+排序 | Discriminated Union / Action类型 | Q12 Q17 Q23 | ⬜ |
-| 8 | memo + useMemo + useCallback | 虚拟列表性能优化 | FC类型 / 函数类型签名 | Q15 Q16 Q19 Q31 | ⬜ |
-| 9 | Redux Toolkit | 收件箱全局状态同步 | RootState / AppDispatch类型 | Q34 Q43 | ⬜ |
-| 10 | React Router v6 + 懒加载 | 多页面导航 | RouteObject / lazy类型 | Q29 Q49 | ⬜ |
-| 11 | 高级模式 + 虚拟DOM深度 | HOC + Error Boundary | 泛型组件 / 高级类型 | Q21 Q24 Q33 Q41 Q44–Q48 | ⬜ |
-| 12 | Canvas + AI（扩展） | 战术白板 + 手绘识别 | — | — | ⬜ |
+| 阶段 | 核心概念                          | 构建 UI                     | TypeScript 要点                   | 面试题                  | 状态 |
+| ---- | --------------------------------- | --------------------------- | --------------------------------- | ----------------------- | ---- |
+| 0    | 项目初始化 + GitHub               | 空项目跑起来                | TS 基础类型 + tsconfig            | —                       | ✅   |
+| 1    | JSX + Tailwind + **Flexbox**      | 静态侧边栏                  | interface / type / Props类型      | Q1 Q3                   | 🔄   |
+| 2    | useState + 事件                   | 侧边栏折叠+激活             | 泛型useState / 事件类型           | Q4 Q9 Q10 Q50           | ⬜   |
+| 3    | Props + 组件组合 + **Responsive** | Header + TabNav + Card      | Props interface / children类型    | Q2 Q5 Q6 Q20 Q35        | ⬜   |
+| 4    | useEffect + 异步                  | NextMatchCard + FixtureList | async/await类型 / AbortController | Q11 Q13 Q36 Q40         | ⬜   |
+| 5    | useRef + useId                    | 搜索框 + 表单控件           | RefObject类型 / 受控vs非受控      | Q7 Q14 Q18              | ⬜   |
+| 6    | useContext + 主题                 | 暗色/亮色切换               | Context泛型 / 自定义Hook类型      | Q8 Q32 Q43              | ⬜   |
+| 7    | useReducer + 复杂状态             | 收件箱过滤+排序             | Discriminated Union / Action类型  | Q12 Q17 Q23             | ⬜   |
+| 8    | memo + useMemo + useCallback      | 虚拟列表性能优化            | FC类型 / 函数类型签名             | Q15 Q16 Q19 Q31         | ⬜   |
+| 9    | Redux Toolkit                     | 收件箱全局状态同步          | RootState / AppDispatch类型       | Q34 Q43                 | ⬜   |
+| 10   | React Router v6 + 懒加载          | 多页面导航                  | RouteObject / lazy类型            | Q29 Q49                 | ⬜   |
+| 11   | 高级模式 + 虚拟DOM深度            | HOC + Error Boundary        | 泛型组件 / 高级类型               | Q21 Q24 Q33 Q41 Q44–Q48 | ⬜   |
+| 12   | Canvas + AI（扩展）               | 战术白板 + 手绘识别         | —                                 | —                       | ⬜   |
 
 ---
 
@@ -62,6 +63,7 @@ React 18 · TypeScript · Vite · Tailwind CSS v3 · shadcn/ui · Redux Toolkit 
 详见 `phase0.md`
 
 **核心内容：**
+
 - Vite + React + TypeScript 脚手架
 - Tailwind CSS 自定义色板
 - ESLint 配置（Vite 内置）
@@ -70,11 +72,12 @@ React 18 · TypeScript · Vite · Tailwind CSS v3 · shadcn/ui · Redux Toolkit 
 - GitHub 初始化 + Conventional Commits
 
 **完成标志：**
-- ⬜ `npm run dev` 启动，深色背景金色标题显示
-- ⬜ `npm run lint` 无报错
-- ⬜ Husky 阻断带 lint 错误的 commit
-- ⬜ commitlint 阻断不规范的 commit 信息
-- ⬜ 代码已推送到 GitHub
+
+- ✅ `npm run dev` 启动，深色背景金色标题显示
+- ✅ `npm run lint` 无报错
+- ✅ Husky 阻断带 lint 错误的 commit
+- ✅ commitlint 阻断不规范的 commit 信息
+- ✅ 代码已推送到 GitHub
 
 ---
 
@@ -82,11 +85,17 @@ React 18 · TypeScript · Vite · Tailwind CSS v3 · shadcn/ui · Redux Toolkit 
 
 详见 `phase1.md`
 
-**核心概念：** JSX 语法 · Tailwind 工具类 · lucide-react 图标
+**核心概念：** JSX 语法 · Tailwind 工具类 · lucide-react 图标 · **Flexbox 布局基础**
 **构建内容：** 18 个导航项的深色静态侧边栏
 **TypeScript：** `interface NavItem` · `LucideIcon` 类型 · 数组类型
-**面试题：** Q1（What is React）· Q3（What is JSX）
-**完成标志：** ⬜ 18 项正确显示，TS 无报错
+**Flex 要点：**
+
+- `flex flex-col` — 侧边栏纵向排列
+- `flex items-center gap-3` — 每项图标 + 文字横向对齐
+- `mt-auto` — Settings / Exit 推到底部
+- `w-52` 固定宽度（桌面）预留折叠变量
+  **面试题：** Q1（What is React）· Q3（What is JSX）
+  **完成标志：** ⬜ 18 项正确显示，TS 无报错
 
 ---
 
@@ -107,11 +116,20 @@ React 18 · TypeScript · Vite · Tailwind CSS v3 · shadcn/ui · Redux Toolkit 
 详见 `phase3.md`
 
 **⭐ 此阶段引入 shadcn/ui**
+**⭐ 此阶段引入 Responsive Design + Mobile 布局**
 **核心概念：** Props · children · 状态提升 · .map() 渲染列表
 **构建内容：** Header · TabNav · Card 复合组件
 **TypeScript：** Props interface · `React.ReactNode` · 字面量联合类型
-**面试题：** Q2 · Q5 · Q6 · Q20 · Q35
-**完成标志：** ⬜ Header 显示日期时间；⬜ TabNav 激活下划线
+**Responsive 要点：**
+
+- Tailwind 移动端优先原则：无前缀 = 手机，`md:` = 平板，`lg:` = 桌面
+- 侧边栏：手机隐藏 `hidden md:flex`，桌面显示
+- 主布局：`flex-col md:flex-row`（手机纵排 → 桌面横排）
+- Header：`flex-col sm:flex-row`，手机时搜索框换行
+- TabNav：`overflow-x-auto`，手机横向滚动
+- 断点速查：`sm:640px` · `md:768px` · `lg:1024px` · `xl:1280px`
+  **面试题：** Q2 · Q5 · Q6 · Q20 · Q35
+  **完成标志：** ⬜ Header 显示日期时间；⬜ TabNav 激活下划线；⬜ 手机端侧边栏隐藏，主内容全宽
 
 ---
 
@@ -221,58 +239,58 @@ React 18 · TypeScript · Vite · Tailwind CSS v3 · shadcn/ui · Redux Toolkit 
 
 ## 十七、面试题索引（50题映射）
 
-| Q# | 题目 | 阶段 |
-|----|------|------|
-| Q1 | What is React? Benefits | 1 |
-| Q2 | React Node vs Element vs Component | 3 |
-| Q3 | What is JSX? | 1 |
-| Q4 | State vs Props | 2 |
-| Q5 | Purpose of key prop | 3 |
-| Q6 | Array index as key - pitfalls | 3 |
-| Q7 | Controlled vs uncontrolled | 5 |
-| Q8 | Context pitfalls | 6 |
-| Q9 | Benefits of hooks | 2 |
-| Q10 | Rules of hooks | 2 |
-| Q11 | useEffect vs useLayoutEffect | 4 |
-| Q12 | setState callback format | 7 |
-| Q13 | useEffect dependency array | 4 |
-| Q14 | useRef hook | 5 |
-| Q15 | useCallback hook | 8 |
-| Q16 | useMemo hook | 8 |
-| Q17 | useReducer hook | 7 |
-| Q18 | useId hook | 5 |
-| Q19 | What is re-rendering? | 8 |
-| Q20 | React Fragments | 3 |
-| Q21 | forwardRef() | 11 |
-| Q22 | Reset component state | 2 |
-| Q23 | Why not mutate state | 7 |
-| Q24 | Error boundaries | 11 |
-| Q25 | Testing React apps | 扩展 |
-| Q26 | React hydration | 扩展 |
-| Q27 | React Portals | 11 |
-| Q28 | Debug React apps | 全程 |
-| Q29 | React strict mode | 10 |
-| Q30 | Localize React apps | 扩展 |
-| Q31 | Code splitting | 8 |
-| Q32 | Optimize context rerenders | 6 |
-| Q33 | Higher order components | 11 |
-| Q34 | Flux pattern | 9 |
-| Q35 | One-way data flow | 3 |
-| Q36 | Async data loading | 4 |
-| Q37 | Server-side rendering | 扩展 |
-| Q38 | Static generation | 扩展 |
-| Q39 | Presentational vs container | 11 |
-| Q40 | Data fetching pitfalls | 4 |
-| Q41 | Render props | 11 |
-| Q42 | React anti-patterns | 全程 |
-| Q43 | State vs Context vs Redux | 6, 9 |
-| Q44 | Composition pattern | 11 |
-| Q45 | What is virtual DOM? | 11 |
-| Q46 | Virtual DOM benefits & downsides | 11 |
-| Q47 | React Fiber | 11 |
-| Q48 | Reconciliation | 11 |
-| Q49 | React Suspense | 10 |
-| Q50 | useState setter behavior | 2 |
+| Q#  | 题目                               | 阶段 |
+| --- | ---------------------------------- | ---- |
+| Q1  | What is React? Benefits            | 1    |
+| Q2  | React Node vs Element vs Component | 3    |
+| Q3  | What is JSX?                       | 1    |
+| Q4  | State vs Props                     | 2    |
+| Q5  | Purpose of key prop                | 3    |
+| Q6  | Array index as key - pitfalls      | 3    |
+| Q7  | Controlled vs uncontrolled         | 5    |
+| Q8  | Context pitfalls                   | 6    |
+| Q9  | Benefits of hooks                  | 2    |
+| Q10 | Rules of hooks                     | 2    |
+| Q11 | useEffect vs useLayoutEffect       | 4    |
+| Q12 | setState callback format           | 7    |
+| Q13 | useEffect dependency array         | 4    |
+| Q14 | useRef hook                        | 5    |
+| Q15 | useCallback hook                   | 8    |
+| Q16 | useMemo hook                       | 8    |
+| Q17 | useReducer hook                    | 7    |
+| Q18 | useId hook                         | 5    |
+| Q19 | What is re-rendering?              | 8    |
+| Q20 | React Fragments                    | 3    |
+| Q21 | forwardRef()                       | 11   |
+| Q22 | Reset component state              | 2    |
+| Q23 | Why not mutate state               | 7    |
+| Q24 | Error boundaries                   | 11   |
+| Q25 | Testing React apps                 | 扩展 |
+| Q26 | React hydration                    | 扩展 |
+| Q27 | React Portals                      | 11   |
+| Q28 | Debug React apps                   | 全程 |
+| Q29 | React strict mode                  | 10   |
+| Q30 | Localize React apps                | 扩展 |
+| Q31 | Code splitting                     | 8    |
+| Q32 | Optimize context rerenders         | 6    |
+| Q33 | Higher order components            | 11   |
+| Q34 | Flux pattern                       | 9    |
+| Q35 | One-way data flow                  | 3    |
+| Q36 | Async data loading                 | 4    |
+| Q37 | Server-side rendering              | 扩展 |
+| Q38 | Static generation                  | 扩展 |
+| Q39 | Presentational vs container        | 11   |
+| Q40 | Data fetching pitfalls             | 4    |
+| Q41 | Render props                       | 11   |
+| Q42 | React anti-patterns                | 全程 |
+| Q43 | State vs Context vs Redux          | 6, 9 |
+| Q44 | Composition pattern                | 11   |
+| Q45 | What is virtual DOM?               | 11   |
+| Q46 | Virtual DOM benefits & downsides   | 11   |
+| Q47 | React Fiber                        | 11   |
+| Q48 | Reconciliation                     | 11   |
+| Q49 | React Suspense                     | 10   |
+| Q50 | useState setter behavior           | 2    |
 
 ---
 
@@ -344,19 +362,19 @@ npm install @excalidraw/excalidraw
 
 ## 二十、文件对照索引
 
-| 文件 | 内容 |
-|------|------|
-| `tutorials/plan.md` | 本文件，总大纲 |
-| `tutorials/phase0.md` | 项目初始化 + TypeScript 基础 |
-| `tutorials/phase1.md` | JSX + Tailwind + 静态侧边栏 |
-| `tutorials/phase2.md` | useState + 事件处理 |
-| `tutorials/phase3.md` | Props + 组件组合 + shadcn |
-| `tutorials/phase4.md` | useEffect + 异步数据 |
-| `tutorials/phase5.md` | useRef + useId + 表单 |
-| `tutorials/phase6.md` | useContext + 主题系统 |
-| `tutorials/phase7.md` | useReducer + 复杂状态 |
-| `tutorials/phase8.md` | 性能优化 + 虚拟列表 |
-| `tutorials/phase9.md` | Redux Toolkit |
-| `tutorials/phase10.md` | React Router + 懒加载 |
-| `tutorials/phase11.md` | 高级模式 + 虚拟DOM |
-| `tutorials/phase12.md` | Canvas + AI 战术白板 |
+| 文件                   | 内容                         |
+| ---------------------- | ---------------------------- |
+| `tutorials/plan.md`    | 本文件，总大纲               |
+| `tutorials/phase0.md`  | 项目初始化 + TypeScript 基础 |
+| `tutorials/phase1.md`  | JSX + Tailwind + 静态侧边栏  |
+| `tutorials/phase2.md`  | useState + 事件处理          |
+| `tutorials/phase3.md`  | Props + 组件组合 + shadcn    |
+| `tutorials/phase4.md`  | useEffect + 异步数据         |
+| `tutorials/phase5.md`  | useRef + useId + 表单        |
+| `tutorials/phase6.md`  | useContext + 主题系统        |
+| `tutorials/phase7.md`  | useReducer + 复杂状态        |
+| `tutorials/phase8.md`  | 性能优化 + 虚拟列表          |
+| `tutorials/phase9.md`  | Redux Toolkit                |
+| `tutorials/phase10.md` | React Router + 懒加载        |
+| `tutorials/phase11.md` | 高级模式 + 虚拟DOM           |
+| `tutorials/phase12.md` | Canvas + AI 战术白板         |
