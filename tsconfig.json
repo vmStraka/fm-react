@@ -3,5 +3,16 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "target": "ES2020",          // 编译到 ES2020 语法
+    "lib": ["ES2020", "DOM"],    // 可用的内置类型（浏览器 DOM API）
+    "module": "ESNext",          // 使用 ESModule
+    "moduleResolution": "bundler", // Vite 的模块解析模式
+    "jsx": "react-jsx",          // React 17+ 新 JSX transform（不需要 import React）
+    "strict": true,              // ⭐ 开启所有严格检查，是学习的关键
+    "noUnusedLocals": true,      // 未使用的变量报错
+    "noUnusedParameters": true,  // 未使用的参数报错
+    "noFallthroughCasesInSwitch": true  // switch 必须有 break/return
+  }
 }

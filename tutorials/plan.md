@@ -326,8 +326,7 @@ React 18 · TypeScript · Vite · Tailwind CSS v3 · shadcn/ui · Redux Toolkit 
 npm create vite@latest fm-react -- --template react-ts
 cd fm-react
 npm install lucide-react react-router-dom @reduxjs/toolkit react-redux @tanstack/react-virtual clsx tailwind-merge
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
+npm install -D tailwindcss @tailwindcss/vite
 
 # 阶段 0 — Git 工程守卫
 npm install -D husky lint-staged @commitlint/cli @commitlint/config-conventional

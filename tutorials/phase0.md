@@ -91,52 +91,33 @@ npm install @tanstack/react-virtual
 # 工具函数（Tailwind 条件类名合并）
 npm install clsx tailwind-merge
 
-# Tailwind CSS（开发依赖）
-npm install -D tailwindcss postcss autoprefixer
-
-# 初始化 Tailwind 配置文件
-npx tailwindcss init -p
+# Tailwind CSS v4（开发依赖，配合 Vite 插件）
+npm install -D tailwindcss @tailwindcss/vite
 ```
 
 安装完成后 `package.json` 的 dependencies 应该包含这些包。
 
 ---
 
-## 步骤 3：配置 Tailwind CSS
+## 步骤 3：配置 Tailwind CSS v4
 
-### 3.1 修改 `tailwind.config.js`
+> **Tailwind v4 重大变化：不再使用 `tailwind.config.js`，改为在 CSS 和 Vite 插件中配置。**
 
-```js
-/** @type {import('tailwindcss').Config} */
-export default {
-  // 告诉 Tailwind 扫描哪些文件，生成对应的 CSS 类
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+### 3.1 配置 `vite.config.ts`
+
+添加 `@tailwindcss/vite` 插件：
+
+```ts
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(),  // ← 添加这一行
   ],
-  // 开启 class 模式的暗色主题（阶段 6 使用）
-  darkMode: "class",
-  theme: {
-    extend: {
-      colors: {
-        // FM 游戏的深色系（对应截图左侧深紫色侧边栏）
-        navy: {
-          700: "#1e2740",
-          800: "#161e30",
-          900: "#0e1520",
-        },
-        // FM 游戏的主题色
-        fm: {
-          gold:   "#f59e0b",  // 金色：激活状态、高亮
-          purple: "#4f46e5",  // 紫色：主色调
-          green:  "#22c55e",  // 绿色：正面信息
-          red:    "#ef4444",  // 红色：警告、未读徽标
-        },
-      },
-    },
-  },
-  plugins: [],
-};
+})
 ```
 
 ### 3.2 修改 `src/index.css`
@@ -144,10 +125,24 @@ export default {
 替换全部内容为：
 
 ```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* FM 自定义颜色（v4 用 CSS 变量定义主题） */
+@theme {
+  /* 深色系（侧边栏背景）*/
+  --color-navy-700: #1e2740;
+  --color-navy-800: #161e30;
+  --color-navy-900: #0e1520;
+
+  /* FM 主题色 */
+  --color-fm-gold:   #f59e0b;  /* 金色：激活高亮 */
+  --color-fm-purple: #4f46e5;  /* 紫色：主色调 */
+  --color-fm-green:  #22c55e;  /* 绿色：正面信息 */
+  --color-fm-red:    #ef4444;  /* 红色：警告、未读 */
+}
 ```
+
+> **v4 颜色使用方式：** 自动生成 `bg-navy-900`、`text-fm-gold` 等工具类，用法与 v3 完全一致。
 
 ### 3.3 验证 Tailwind 生效
 
