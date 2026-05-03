@@ -5,11 +5,13 @@
 > **预计时间：** 3–4 小时
 >
 > **完成标志：**
+>
 > - ⬜ `npm run dev` 启动，浏览器显示 Vite + React 默认页
 > - ⬜ TypeScript 报错会在编辑器中实时显示红线
 > - ⬜ Tailwind 自定义颜色 `bg-navy-900` 生效（页面背景变深色）
 > - ⬜ Git 仓库已推送到 GitHub，可在网页上看到代码
 > - ⬜ `npm run lint` 执行无报错
+
 - ⬜ Husky pre-commit 阻断带 lint 错误的提交
 - ⬜ commitlint 阻断不规范的 commit 信息
 
@@ -19,10 +21,10 @@
 
 ### 1.1 为什么选 Vite？
 
-| 工具 | 启动速度 | 原理 |
-|------|---------|------|
-| Create React App (CRA) | 慢（10–30s） | Webpack 全量打包后启动 |
-| **Vite** | 极快（< 1s） | 利用浏览器原生 ES Module，按需编译 |
+| 工具                   | 启动速度     | 原理                               |
+| ---------------------- | ------------ | ---------------------------------- |
+| Create React App (CRA) | 慢（10–30s） | Webpack 全量打包后启动             |
+| **Vite**               | 极快（< 1s） | 利用浏览器原生 ES Module，按需编译 |
 
 Vite 在开发时不打包，直接把 `.tsx` 文件通过 ESM 发给浏览器，只编译当前访问的文件。
 
@@ -60,14 +62,14 @@ index.html
 
 **关键文件：**
 
-| 文件 | 作用 |
-|------|------|
-| `index.html` | 唯一的 HTML 文件，有 `<div id="root">` 挂载点 |
-| `src/main.tsx` | React 入口，把 App 挂载到 `#root` |
-| `src/App.tsx` | 根组件，从这里开始写你的页面 |
-| `src/vite-env.d.ts` | 声明 Vite 特有的类型（如 `import.meta.env`） |
-| `tsconfig.json` | TypeScript 编译配置 |
-| `vite.config.ts` | Vite 构建配置 |
+| 文件                | 作用                                          |
+| ------------------- | --------------------------------------------- |
+| `index.html`        | 唯一的 HTML 文件，有 `<div id="root">` 挂载点 |
+| `src/main.tsx`      | React 入口，把 App 挂载到 `#root`             |
+| `src/App.tsx`       | 根组件，从这里开始写你的页面                  |
+| `src/vite-env.d.ts` | 声明 Vite 特有的类型（如 `import.meta.env`）  |
+| `tsconfig.json`     | TypeScript 编译配置                           |
+| `vite.config.ts`    | Vite 构建配置                                 |
 
 ---
 
@@ -108,16 +110,16 @@ npm install -D tailwindcss @tailwindcss/vite
 添加 `@tailwindcss/vite` 插件：
 
 ```ts
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),  // ← 添加这一行
+    tailwindcss(), // ← 添加这一行
   ],
-})
+});
 ```
 
 ### 3.2 修改 `src/index.css`
@@ -135,10 +137,10 @@ export default defineConfig({
   --color-navy-900: #0e1520;
 
   /* FM 主题色 */
-  --color-fm-gold:   #f59e0b;  /* 金色：激活高亮 */
-  --color-fm-purple: #4f46e5;  /* 紫色：主色调 */
-  --color-fm-green:  #22c55e;  /* 绿色：正面信息 */
-  --color-fm-red:    #ef4444;  /* 红色：警告、未读 */
+  --color-fm-gold: #f59e0b; /* 金色：激活高亮 */
+  --color-fm-purple: #4f46e5; /* 紫色：主色调 */
+  --color-fm-green: #22c55e; /* 绿色：正面信息 */
+  --color-fm-red: #ef4444; /* 红色：警告、未读 */
 }
 ```
 
@@ -152,9 +154,7 @@ export default defineConfig({
 function App() {
   return (
     <div className="bg-navy-900 h-screen flex items-center justify-center">
-      <h1 className="text-fm-gold text-4xl font-bold">
-        FM Dashboard
-      </h1>
+      <h1 className="text-fm-gold text-4xl font-bold">FM Dashboard</h1>
     </div>
   );
 }
@@ -175,15 +175,15 @@ Vite 模板生成的 tsconfig 已经很好，了解关键配置：
 ```json
 {
   "compilerOptions": {
-    "target": "ES2020",          // 编译到 ES2020 语法
-    "lib": ["ES2020", "DOM"],    // 可用的内置类型（浏览器 DOM API）
-    "module": "ESNext",          // 使用 ESModule
+    "target": "ES2020", // 编译到 ES2020 语法
+    "lib": ["ES2020", "DOM"], // 可用的内置类型（浏览器 DOM API）
+    "module": "ESNext", // 使用 ESModule
     "moduleResolution": "bundler", // Vite 的模块解析模式
-    "jsx": "react-jsx",          // React 17+ 新 JSX transform（不需要 import React）
-    "strict": true,              // ⭐ 开启所有严格检查，是学习的关键
-    "noUnusedLocals": true,      // 未使用的变量报错
-    "noUnusedParameters": true,  // 未使用的参数报错
-    "noFallthroughCasesInSwitch": true  // switch 必须有 break/return
+    "jsx": "react-jsx", // React 17+ 新 JSX transform（不需要 import React）
+    "strict": true, // ⭐ 开启所有严格检查，是学习的关键
+    "noUnusedLocals": true, // 未使用的变量报错
+    "noUnusedParameters": true, // 未使用的参数报错
+    "noFallthroughCasesInSwitch": true // switch 必须有 break/return
   }
 }
 ```
@@ -196,7 +196,7 @@ Vite 模板生成的 tsconfig 已经很好，了解关键配置：
 
 ```typescript
 // 变量后面加 `: 类型`
-const managerName: string = 'Kuma Mon';
+const managerName: string = "Kuma Mon";
 const teamRating: number = 78;
 const isHomeGame: boolean = true;
 
@@ -206,8 +206,8 @@ function formatDate(date: Date): string {
 }
 
 // TypeScript 可以自动推断，不需要每个变量都写类型
-const year = 2024;         // 推断为 number
-const greeting = 'Hello';  // 推断为 string
+const year = 2024; // 推断为 number
+const greeting = "Hello"; // 推断为 string
 ```
 
 **② interface — 定义对象形状**
@@ -220,33 +220,33 @@ interface Player {
   age: number;
   position: string;
   overall: number;
-  contract?: Date;    // ? 表示可选属性（可以不传）
+  contract?: Date; // ? 表示可选属性（可以不传）
 }
 
 // 使用 interface
 const player: Player = {
   id: 1,
-  name: 'Marcus Rashford',
+  name: "Marcus Rashford",
   age: 26,
-  position: 'LW',
+  position: "LW",
   overall: 84,
   // contract 可以不写，因为是可选的
 };
 
 // 数组
-const squad: Player[] = [player];    // 等价于 Array<Player>
+const squad: Player[] = [player]; // 等价于 Array<Player>
 ```
 
 **③ type — 定义类型别名**
 
 ```typescript
 // 联合类型：只能是这几个值之一
-type Position = 'GK' | 'CB' | 'LB' | 'RB' | 'CM' | 'CAM' | 'LW' | 'RW' | 'ST';
-type LoadingStatus = 'idle' | 'loading' | 'success' | 'error';
+type Position = "GK" | "CB" | "LB" | "RB" | "CM" | "CAM" | "LW" | "RW" | "ST";
+type LoadingStatus = "idle" | "loading" | "success" | "error";
 
 // 使用
-const pos: Position = 'ST';         // ✅ 合法
-const pos2: Position = 'Midfielder'; // ❌ TS 报错：不在联合类型中
+const pos: Position = "ST"; // ✅ 合法
+const pos2: Position = "Midfielder"; // ❌ TS 报错：不在联合类型中
 
 // interface vs type 使用规则（记住这个）
 // - 定义对象形状 → 用 interface（支持扩展 extends）
@@ -264,8 +264,8 @@ function getFirst<T>(array: T[]): T | undefined {
   return array[0];
 }
 
-const firstPlayer = getFirst<Player>(squad);   // T = Player
-const firstNumber = getFirst<number>([1,2,3]); // T = number
+const firstPlayer = getFirst<Player>(squad); // T = Player
+const firstNumber = getFirst<number>([1, 2, 3]); // T = number
 
 // 泛型接口
 interface ApiResponse<T> {
@@ -277,7 +277,7 @@ interface ApiResponse<T> {
 const response: ApiResponse<Player[]> = {
   data: squad,
   status: 200,
-  message: 'ok'
+  message: "ok",
 };
 ```
 
@@ -415,8 +415,8 @@ mkdir -p src/pages
 **创建 `src/lib/utils.ts`**（shadcn 需要的工具函数，阶段3使用）：
 
 ```typescript
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 // cn() 函数：合并 Tailwind 类名，解决类名冲突
 // 用法：cn('px-4 py-2', isActive && 'bg-blue-500', className)
@@ -433,12 +433,12 @@ Lint 是静态代码分析工具，在运行前发现代码问题——不规范
 
 ### 8.1 主流工具横向对比
 
-| 工具 | 定位 | 速度 | 特点 |
-|------|------|------|------|
-| **ESLint** | Linter | 中 | 生态最成熟，插件最多，React 项目标配 |
-| **Biome** | Linter + Formatter 二合一 | 极快（Rust） | 无需 ESLint + Prettier，配置简单，2024 崛起 |
-| **oxlint** | Linter（ESLint 替代） | 极快（Rust） | 只做 Lint，常和 ESLint 搭配加速 |
-| **Prettier** | Formatter（格式化） | 快 | 只管代码格式，不检查逻辑 |
+| 工具         | 定位                      | 速度         | 特点                                        |
+| ------------ | ------------------------- | ------------ | ------------------------------------------- |
+| **ESLint**   | Linter                    | 中           | 生态最成熟，插件最多，React 项目标配        |
+| **Biome**    | Linter + Formatter 二合一 | 极快（Rust） | 无需 ESLint + Prettier，配置简单，2024 崛起 |
+| **oxlint**   | Linter（ESLint 替代）     | 极快（Rust） | 只做 Lint，常和 ESLint 搭配加速             |
+| **Prettier** | Formatter（格式化）       | 快           | 只管代码格式，不检查逻辑                    |
 
 **本项目推荐：ESLint**
 
@@ -453,40 +453,39 @@ Lint 是静态代码分析工具，在运行前发现代码问题——不规范
 Vite `react-ts` 模板已生成 `eslint.config.js`：
 
 ```js
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
+import js from "@eslint/js";
+import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import tseslint from "typescript-eslint";
+import { defineConfig, globalIgnores } from "eslint/config"; // ESLint v9+ flat config
 
-export default tseslint.config(
-  { ignores: ['dist'] },
+export default defineConfig([
+  globalIgnores(["dist"]), // 忽略构建产物
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended, // ⭐ Hook 调用规则（新 flat API）
+      reactRefresh.configs.vite, // Vite HMR 兼容性检查
+    ],
     languageOptions: {
-      ecmaVersion: 2020,
       globals: globals.browser,
     },
-    plugins: {
-      'react-hooks': reactHooks,       // ⭐ 检查 Hook 使用规则
-      'react-refresh': reactRefresh,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,  // useEffect 依赖检查等
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    },
   },
-)
+]);
 ```
+
+> **与旧版的区别：** ESLint v9 引入了 flat config，用 `defineConfig()` 替代 `tseslint.config()`，插件通过 `.configs.flat.recommended` 挂载，无需手动展开 `rules`。
 
 **关键规则说明：**
 
-| 规则来源 | 作用 |
-|---------|------|
-| `typescript-eslint` | TS 代码规范（禁止隐式 `any`、未使用变量等） |
-| `eslint-plugin-react-hooks` | Hook 调用顺序、`useEffect` 缺少依赖时警告 |
-| `eslint-plugin-react-refresh` | Vite HMR 热更新兼容性检查 |
+| 规则来源                      | 作用                                        |
+| ----------------------------- | ------------------------------------------- |
+| `typescript-eslint`           | TS 代码规范（禁止隐式 `any`、未使用变量等） |
+| `eslint-plugin-react-hooks`   | Hook 调用顺序、`useEffect` 缺少依赖时警告   |
+| `eslint-plugin-react-refresh` | Vite HMR 热更新兼容性检查                   |
 
 ---
 
@@ -501,6 +500,7 @@ npm run lint -- --fix
 ```
 
 **示例输出：**
+
 ```
 src/components/layout/Sidebar.tsx
   12:5  warning  React Hook useEffect has a missing dependency: 'items'
@@ -527,18 +527,30 @@ src/components/layout/Sidebar.tsx
 在 `eslint.config.js` 的 `rules` 区域按需调整：
 
 ```js
-rules: {
-  ...reactHooks.configs.recommended.rules,
+// eslint.config.js — 在 extends 数组后追加自定义 rules 对象
+export default defineConfig([
+  globalIgnores(["dist"]),
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: { globals: globals.browser },
+    rules: {
+      // 学习阶段先设 warn，不阻断开发；熟练后改为 error
+      "@typescript-eslint/no-explicit-any": "warn",
 
-  // 学习阶段先设 warn，不阻断开发；熟练后改为 error
-  '@typescript-eslint/no-explicit-any': 'warn',
+      // console.log 开发时允许，上线前记得清理
+      "no-console": "warn",
 
-  // console.log 开发时允许，上线前记得清理
-  'no-console': 'warn',
-
-  // 允许空函数（占位时有用）
-  '@typescript-eslint/no-empty-function': 'off',
-}
+      // 允许空函数（占位时有用）
+      "@typescript-eslint/no-empty-function": "off",
+    },
+  },
+]);
 ```
 
 ---
@@ -555,6 +567,7 @@ npx @biomejs/biome check --write src/  # 修复
 ```
 
 `biome.json` 核心配置：
+
 ```json
 {
   "linter": { "enabled": true, "rules": { "recommended": true } },
@@ -591,29 +604,29 @@ Prettier / Biome   → 代码格式统一
 
 打开 VS Code，安装以下插件（搜索插件名安装）：
 
-| 插件 | 用途 |
-|------|------|
-| `Tailwind CSS IntelliSense` | Tailwind 类名自动补全 + 颜色预览 |
+| 插件                                     | 用途                               |
+| ---------------------------------------- | ---------------------------------- |
+| `Tailwind CSS IntelliSense`              | Tailwind 类名自动补全 + 颜色预览   |
 | `ES7+ React/Redux/React-Native snippets` | 快捷创建组件（输入 `rafce` + Tab） |
-| `Pretty TypeScript Errors` | 让 TS 错误信息更易读 |
-| `Auto Rename Tag` | 自动同步修改 JSX 开闭标签 |
-| `ESLint` | 实时显示 Lint 错误波浪线 |
+| `Pretty TypeScript Errors`               | 让 TS 错误信息更易读               |
+| `Auto Rename Tag`                        | 自动同步修改 JSX 开闭标签          |
+| `ESLint`                                 | 实时显示 Lint 错误波浪线           |
 
 ### 9.2 安装 Chrome 扩展
 
-| 扩展 | 用途 | 安装 |
-|------|------|------|
-| `React Developer Tools` | 查看组件树、props、state、Profiler | Chrome 应用商店 |
-| `Redux DevTools` | 查看 Redux action 历史（阶段9使用） | Chrome 应用商店 |
+| 扩展                    | 用途                                | 安装            |
+| ----------------------- | ----------------------------------- | --------------- |
+| `React Developer Tools` | 查看组件树、props、state、Profiler  | Chrome 应用商店 |
+| `Redux DevTools`        | 查看 Redux action 历史（阶段9使用） | Chrome 应用商店 |
 
 ### 9.3 VS Code 快捷键（常用）
 
-| 快捷键 | 功能 |
-|--------|------|
-| `Cmd+.` | 快速修复（TS / ESLint 报错时出现灯泡） |
-| `F12` | 跳转到定义 |
-| `Shift+Option+F` | 格式化当前文件（Prettier） |
-| `Cmd+Shift+P` → `Organize Imports` | 自动整理 import 顺序 |
+| 快捷键                             | 功能                                   |
+| ---------------------------------- | -------------------------------------- |
+| `Cmd+.`                            | 快速修复（TS / ESLint 报错时出现灯泡） |
+| `F12`                              | 跳转到定义                             |
+| `Shift+Option+F`                   | 格式化当前文件（Prettier）             |
+| `Cmd+Shift+P` → `Organize Imports` | 自动整理 import 顺序                   |
 
 ---
 
@@ -672,13 +685,8 @@ npx lint-staged
 ```json
 {
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,css,md}": [
-      "prettier --write"
-    ]
+    "*.{ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,css,md}": ["prettier --write"]
   }
 }
 ```
@@ -696,13 +704,14 @@ echo 'npx --no -- commitlint --edit $1' > .husky/commit-msg
 
 ```js
 export default {
-  extends: ['@commitlint/config-conventional'],
+  extends: ["@commitlint/config-conventional"],
 };
 ```
 
 ### 10.8 验证效果
 
 **测试 pre-commit（故意引入 lint 错误）：**
+
 ```tsx
 // 在任意 .tsx 文件加入
 const unused = 'this will be caught';  // 未使用变量
@@ -713,6 +722,7 @@ git commit -m "test"
 ```
 
 **测试 commitlint（故意写错格式）：**
+
 ```bash
 git commit -m "update stuff"
 # → commitlint 报错：subject may not be empty / type must be one of [feat, fix, chore...]
@@ -724,36 +734,35 @@ git commit -m "chore: configure husky and lint-staged"
 
 ### 10.9 常用 commit type 速查
 
-| type | 含义 |
-|------|------|
-| `feat` | 新功能 |
-| `fix` | 修复 bug |
-| `chore` | 工程配置（不影响业务代码） |
-| `docs` | 文档更新 |
-| `style` | 代码格式（不影响逻辑） |
-| `refactor` | 重构 |
-| `perf` | 性能优化 |
-| `test` | 测试相关 |
+| type       | 含义                       |
+| ---------- | -------------------------- |
+| `feat`     | 新功能                     |
+| `fix`      | 修复 bug                   |
+| `chore`    | 工程配置（不影响业务代码） |
+| `docs`     | 文档更新                   |
+| `style`    | 代码格式（不影响逻辑）     |
+| `refactor` | 重构                       |
+| `perf`     | 性能优化                   |
+| `test`     | 测试相关                   |
 
 ### 10.10 对比：有无 Husky
 
-| 场景 | 没有 Husky | 有 Husky |
-|------|-----------|---------|
-| 忘记跑 lint | 带着错误提交进仓库 | 自动检查，有错阻断 |
-| commit 信息随意 | `fix bug`、`update` | 强制规范格式 |
-| 团队协作 | 每人配置不同 | 统一规则随代码共享 |
-| CI 失败率 | 高（本地没检查） | 低（本地已过关） |
-| `Redux DevTools` | 查看 Redux action 历史（阶段9使用） | Chrome 应用商店 |
+| 场景             | 没有 Husky                          | 有 Husky           |
+| ---------------- | ----------------------------------- | ------------------ |
+| 忘记跑 lint      | 带着错误提交进仓库                  | 自动检查，有错阻断 |
+| commit 信息随意  | `fix bug`、`update`                 | 强制规范格式       |
+| 团队协作         | 每人配置不同                        | 统一规则随代码共享 |
+| CI 失败率        | 高（本地没检查）                    | 低（本地已过关）   |
+| `Redux DevTools` | 查看 Redux action 历史（阶段9使用） | Chrome 应用商店    |
 
 ### 9.3 VS Code 快捷键（常用）
 
-| 快捷键 | 功能 |
-|--------|------|
-| `Cmd+.` | 快速修复（TS / ESLint 报错时出现灯泡） |
-| `F12` | 跳转到定义 |
-| `Shift+Option+F` | 格式化当前文件（Prettier） |
-| `Cmd+Shift+P` → `Organize Imports` | 自动整理 import 顺序 |
-
+| 快捷键                             | 功能                                   |
+| ---------------------------------- | -------------------------------------- |
+| `Cmd+.`                            | 快速修复（TS / ESLint 报错时出现灯泡） |
+| `F12`                              | 跳转到定义                             |
+| `Shift+Option+F`                   | 格式化当前文件（Prettier）             |
+| `Cmd+Shift+P` → `Organize Imports` | 自动整理 import 顺序                   |
 
 ---
 
@@ -762,6 +771,7 @@ git commit -m "chore: configure husky and lint-staged"
 完成本阶段后，尝试回答以下问题（不查资料）：
 
 **概念理解：**
+
 1. Vite 和 Create React App 的主要区别是什么？
 2. `interface` 和 `type` 各自适合什么场景？
 3. TypeScript 的泛型 `<T>` 解决了什么问题？
@@ -779,26 +789,33 @@ interface Match {
 
 // 练习 2：定义一个泛型函数 findById
 // 接受 id: number 和 items: T[]（T 有 id: number 属性），返回找到的 T 或 undefined
-function findById<T extends { id: number }>(id: number, items: T[]): T | undefined {
+function findById<T extends { id: number }>(
+  id: number,
+  items: T[],
+): T | undefined {
   // 在这里填写...
 }
 ```
 
 **参考答案：**
+
 ```typescript
 // 练习 1
 interface Match {
   homeTeam: string;
   awayTeam: string;
   date: Date;
-  type: 'Friendly' | 'League' | 'Cup';
+  type: "Friendly" | "League" | "Cup";
   venue: string;
   attendance?: number;
 }
 
 // 练习 2
-function findById<T extends { id: number }>(id: number, items: T[]): T | undefined {
-  return items.find(item => item.id === id);
+function findById<T extends { id: number }>(
+  id: number,
+  items: T[],
+): T | undefined {
+  return items.find((item) => item.id === id);
 }
 ```
 
@@ -835,15 +852,17 @@ function findById<T extends { id: number }>(id: number, items: T[]): T | undefin
 ### A.1 为什么要类型驱动？
 
 传统写法（实现驱动）：
+
 ```typescript
 // 先写实现，类型是事后补的
 function getPlayer(id) {
-  return fetch(`/api/players/${id}`).then(r => r.json());
+  return fetch(`/api/players/${id}`).then((r) => r.json());
 }
 // 问题：返回什么类型？调用者不知道。出错了运行时才发现。
 ```
 
 类型驱动写法：
+
 ```typescript
 // 先写签名（契约）
 async function getPlayer(id: PlayerId): Promise<Player>;
@@ -861,6 +880,7 @@ async function getPlayer(id: PlayerId): Promise<Player>;
 ### A.2 在 FM 项目中实践：先建 types/ 目录
 
 **开发顺序（类型驱动）：**
+
 ```
 1. 设计数据类型（src/types/）
       ↓
@@ -872,56 +892,75 @@ async function getPlayer(id: PlayerId): Promise<Player>;
 ```
 
 **先创建 `src/types/player.ts`：**
+
 ```typescript
 // 第一步：设计精确的数据类型，不是上来就写组件
 
 // Brand Type：防止不同 ID 类型混用
-type PlayerId = number & { readonly _brand: 'PlayerId' };
-type TeamId   = number & { readonly _brand: 'TeamId' };
+type PlayerId = number & { readonly _brand: "PlayerId" };
+type TeamId = number & { readonly _brand: "TeamId" };
 
-type Position = 'GK' | 'CB' | 'LB' | 'RB' | 'CDM' | 'CM' | 'CAM' | 'LW' | 'RW' | 'ST';
-type Foot     = 'Left' | 'Right' | 'Both';
+type Position =
+  | "GK"
+  | "CB"
+  | "LB"
+  | "RB"
+  | "CDM"
+  | "CM"
+  | "CAM"
+  | "LW"
+  | "RW"
+  | "ST";
+type Foot = "Left" | "Right" | "Both";
 
 interface PlayerAttributes {
-  pace:      number;  // 1–20
-  shooting:  number;
-  passing:   number;
+  pace: number; // 1–20
+  shooting: number;
+  passing: number;
   dribbling: number;
   defending: number;
-  physical:  number;
+  physical: number;
 }
 
 interface Player {
-  id:         PlayerId;
-  name:       string;
-  age:        number;
-  position:   Position;
-  overall:    number;      // 综合评分 1–99
-  potential:  number;
+  id: PlayerId;
+  name: string;
+  age: number;
+  position: Position;
+  overall: number; // 综合评分 1–99
+  potential: number;
   preferredFoot: Foot;
   attributes: PlayerAttributes;
-  teamId:     TeamId;
-  value:      number;      // 市场价值（欧元）
-  wage:       number;      // 周薪
+  teamId: TeamId;
+  value: number; // 市场价值（欧元）
+  wage: number; // 周薪
   contractEnd: Date;
 }
 
 // 转会目标（不是完整球员，只有部分信息）
-type TransferTarget = Pick<Player, 'id' | 'name' | 'position' | 'overall' | 'value'>;
+type TransferTarget = Pick<
+  Player,
+  "id" | "name" | "position" | "overall" | "value"
+>;
 
 // 球探报告（只读，不可修改）
 type ScoutReport = Readonly<{
-  player:   TransferTarget;
-  rating:   1 | 2 | 3 | 4 | 5;   // 字面量类型，只能是这5个值
-  comment:  string;
+  player: TransferTarget;
+  rating: 1 | 2 | 3 | 4 | 5; // 字面量类型，只能是这5个值
+  comment: string;
   scoutedAt: Date;
 }>;
 ```
 
 **再创建 `src/types/match.ts`：**
+
 ```typescript
-type MatchId    = number & { readonly _brand: 'MatchId' };
-type Competition = 'Premier League' | 'FA Cup' | 'Champions League' | 'Friendly';
+type MatchId = number & { readonly _brand: "MatchId" };
+type Competition =
+  | "Premier League"
+  | "FA Cup"
+  | "Champions League"
+  | "Friendly";
 
 interface MatchResult {
   homeGoals: number;
@@ -930,44 +969,51 @@ interface MatchResult {
 
 // Discriminated Union：比赛的三种状态
 type MatchState =
-  | { status: 'upcoming'; kickoff: Date }
-  | { status: 'live';     minutePlayed: number; result: MatchResult }
-  | { status: 'finished'; result: MatchResult; attendance: number };
+  | { status: "upcoming"; kickoff: Date }
+  | { status: "live"; minutePlayed: number; result: MatchResult }
+  | { status: "finished"; result: MatchResult; attendance: number };
 
 interface Match {
-  id:          MatchId;
-  homeTeam:    string;
-  awayTeam:    string;
+  id: MatchId;
+  homeTeam: string;
+  awayTeam: string;
   competition: Competition;
-  venue:       string;
-  state:       MatchState;    // 包含所有状态信息
+  venue: string;
+  state: MatchState; // 包含所有状态信息
 }
 ```
 
 **再创建 `src/types/inbox.ts`：**
+
 ```typescript
-type MessageId  = string & { readonly _brand: 'MessageId' };
-type MessageCategory = 'transfer' | 'injury' | 'contract' | 'media' | 'board' | 'general';
-type Priority = 'urgent' | 'normal' | 'low';
+type MessageId = string & { readonly _brand: "MessageId" };
+type MessageCategory =
+  | "transfer"
+  | "injury"
+  | "contract"
+  | "media"
+  | "board"
+  | "general";
+type Priority = "urgent" | "normal" | "low";
 
 interface Message {
-  id:         MessageId;
-  subject:    string;
-  sender:     string;
-  category:   MessageCategory;
-  priority:   Priority;
-  read:       boolean;
+  id: MessageId;
+  subject: string;
+  sender: string;
+  category: MessageCategory;
+  priority: Priority;
+  read: boolean;
   receivedAt: Date;
-  body?:      string;   // 可选：预览时不需要正文
+  body?: string; // 可选：预览时不需要正文
 }
 
 // API 分页响应（泛型，可复用）
 interface PaginatedResponse<T> {
-  items:      T[];
-  total:      number;
-  page:       number;
-  pageSize:   number;
-  hasMore:    boolean;
+  items: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+  hasMore: boolean;
 }
 
 type MessageListResponse = PaginatedResponse<Message>;
@@ -980,6 +1026,7 @@ type MessageListResponse = PaginatedResponse<Message>;
 这是 Boris Cherny 最强调的模式，来自函数式编程的代数数据类型（ADT）。
 
 **问题：传统写法状态混乱**
+
 ```typescript
 // ❌ 不好：所有字段都可能是 undefined，状态不清晰
 interface FetchState {
@@ -992,6 +1039,7 @@ interface FetchState {
 ```
 
 **Boris 风格：用 Discriminated Union 精确建模**
+
 ```typescript
 // ✅ 好：每种状态是独立的类型，不可能出现矛盾
 type FetchState<T> =
@@ -1013,20 +1061,21 @@ function renderPlayerList(state: FetchState<Player[]>) {
 ```
 
 **在 FM 项目中的应用：**
+
 ```typescript
 // 比赛状态（回顾 match.ts 中的设计）
 type MatchState =
-  | { status: 'upcoming'; kickoff: Date }
-  | { status: 'live';     minutePlayed: number; result: MatchResult }
-  | { status: 'finished'; result: MatchResult; attendance: number };
+  | { status: "upcoming"; kickoff: Date }
+  | { status: "live"; minutePlayed: number; result: MatchResult }
+  | { status: "finished"; result: MatchResult; attendance: number };
 
 function renderMatchStatus(state: MatchState) {
   switch (state.status) {
-    case 'upcoming':
+    case "upcoming":
       return `Kicks off ${state.kickoff.toLocaleDateString()}`;
-    case 'live':
+    case "live":
       return `${state.minutePlayed}' — ${state.result.homeGoals}:${state.result.awayGoals}`;
-    case 'finished':
+    case "finished":
       return `FT ${state.result.homeGoals}:${state.result.awayGoals}`;
   }
 }
@@ -1075,11 +1124,11 @@ interface Player {
 }
 
 // Pick：只保留指定字段
-type PlayerCard = Pick<Player, 'id' | 'name' | 'overall'>;
+type PlayerCard = Pick<Player, "id" | "name" | "overall">;
 // → { id: PlayerId; name: string; overall: number }
 
 // Omit：删除指定字段
-type PlayerWithoutId = Omit<Player, 'id'>;
+type PlayerWithoutId = Omit<Player, "id">;
 // → 除了 id 的所有字段
 
 // Partial：所有字段变可选（常用于更新操作）
@@ -1098,15 +1147,19 @@ type PositionMap = Record<Position, Player[]>;
 ```
 
 **在 FM 项目中的实际用法：**
+
 ```typescript
 // 创建球员时不需要 id（服务器生成）
-type CreatePlayerInput = Omit<Player, 'id'>;
+type CreatePlayerInput = Omit<Player, "id">;
 
 // 更新球员时所有字段可选
-type UpdatePlayerInput = Partial<Omit<Player, 'id'>>;
+type UpdatePlayerInput = Partial<Omit<Player, "id">>;
 
 // 转会目标只显示关键信息
-type TransferTarget = Pick<Player, 'id' | 'name' | 'position' | 'overall' | 'value'>;
+type TransferTarget = Pick<
+  Player,
+  "id" | "name" | "position" | "overall" | "value"
+>;
 ```
 
 ---
@@ -1129,23 +1182,23 @@ Step 4: TypeScript 帮你验证
 
 // Step 2：先写签名
 type FetchState<T> =
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'success'; data: T }
-  | { status: 'error'; error: string };
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: T }
+  | { status: "error"; error: string };
 
 // 签名：接受一个返回 Promise<T> 的函数，返回 FetchState<T>
 function useFetch<T>(fetchFn: () => Promise<T>): FetchState<T>;
 
 // Step 3：填充实现（有了签名，实现几乎是"填空"）
 function useFetch<T>(fetchFn: () => Promise<T>): FetchState<T> {
-  const [state, setState] = useState<FetchState<T>>({ status: 'idle' });
+  const [state, setState] = useState<FetchState<T>>({ status: "idle" });
 
   useEffect(() => {
-    setState({ status: 'loading' });
+    setState({ status: "loading" });
     fetchFn()
-      .then(data => setState({ status: 'success', data }))
-      .catch(err => setState({ status: 'error', error: err.message }));
+      .then((data) => setState({ status: "success", data }))
+      .catch((err) => setState({ status: "error", error: err.message }));
   }, [fetchFn]);
 
   return state;
@@ -1153,8 +1206,8 @@ function useFetch<T>(fetchFn: () => Promise<T>): FetchState<T> {
 
 // Step 4：使用时，TS 自动推断类型
 const state = useFetch<Match[]>(fetchFixtures);
-if (state.status === 'success') {
-  state.data;  // TS 知道这里是 Match[]
+if (state.status === "success") {
+  state.data; // TS 知道这里是 Match[]
 }
 ```
 
@@ -1162,16 +1215,17 @@ if (state.status === 'success') {
 
 ### A.7 与 React 的结合总结
 
-| 场景 | Boris TDD 应用 |
-|------|---------------|
-| 组件 Props | 先写 `interface XxxProps`，再写组件函数 |
-| 状态设计 | 用 Discriminated Union 代替 `loading/data/error` 三个 boolean |
-| API 数据 | 先定义 `interface`，再写 `fetch` 调用 |
-| useReducer | Action 用 Discriminated Union，reducer 类型签名先写 |
-| Redux | `RootState` / `AppDispatch` 类型先导出，再写 selector |
-| 工具函数 | 函数签名（输入/输出类型）先写，实现后填 |
+| 场景       | Boris TDD 应用                                                |
+| ---------- | ------------------------------------------------------------- |
+| 组件 Props | 先写 `interface XxxProps`，再写组件函数                       |
+| 状态设计   | 用 Discriminated Union 代替 `loading/data/error` 三个 boolean |
+| API 数据   | 先定义 `interface`，再写 `fetch` 调用                         |
+| useReducer | Action 用 Discriminated Union，reducer 类型签名先写           |
+| Redux      | `RootState` / `AppDispatch` 类型先导出，再写 selector         |
+| 工具函数   | 函数签名（输入/输出类型）先写，实现后填                       |
 
 **核心记忆点：**
+
 > "类型签名是最好的文档，也是最好的测试。写代码之前先想好类型，实现就是填空题。"
 > — Boris Cherny 思想精华
 
@@ -1179,10 +1233,10 @@ if (state.status === 'success') {
 
 ## 附录 B：常见 TS 错误解读
 
-| 错误信息 | 含义 | 解决方法 |
-|---------|------|---------|
-| `Type 'string' is not assignable to type 'number'` | 类型不匹配 | 检查变量类型，或用 `Number()` 转换 |
-| `Object is possibly 'null'` | 变量可能为 null | 用 `?.` 可选链或先判断 `if (x !== null)` |
-| `Property 'X' does not exist on type 'Y'` | 访问了不存在的属性 | 检查 interface 定义，或添加该属性 |
-| `Parameter 'X' implicitly has an 'any' type` | 参数缺少类型标注 | 给参数加上类型：`(x: string)` |
-| `Cannot find module 'X'` | 找不到模块 | 检查 `npm install X` 是否执行，或路径是否正确 |
+| 错误信息                                           | 含义               | 解决方法                                      |
+| -------------------------------------------------- | ------------------ | --------------------------------------------- |
+| `Type 'string' is not assignable to type 'number'` | 类型不匹配         | 检查变量类型，或用 `Number()` 转换            |
+| `Object is possibly 'null'`                        | 变量可能为 null    | 用 `?.` 可选链或先判断 `if (x !== null)`      |
+| `Property 'X' does not exist on type 'Y'`          | 访问了不存在的属性 | 检查 interface 定义，或添加该属性             |
+| `Parameter 'X' implicitly has an 'any' type`       | 参数缺少类型标注   | 给参数加上类型：`(x: string)`                 |
+| `Cannot find module 'X'`                           | 找不到模块         | 检查 `npm install X` 是否执行，或路径是否正确 |
