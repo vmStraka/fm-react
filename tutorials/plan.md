@@ -40,21 +40,21 @@ React 18 · TypeScript · Vite · Tailwind CSS v3 · shadcn/ui · Redux Toolkit 
 
 ## 三、学习进度总览
 
-| 阶段 | 核心概念                          | 构建 UI                     | TypeScript 要点                   | 面试题                  | 状态 |
-| ---- | --------------------------------- | --------------------------- | --------------------------------- | ----------------------- | ---- |
-| 0    | 项目初始化 + GitHub               | 空项目跑起来                | TS 基础类型 + tsconfig            | —                       | ✅   |
-| 1    | JSX + Tailwind + **Flexbox**      | 静态侧边栏                  | interface / type / Props类型      | Q1 Q3                   | 🔄   |
-| 2    | useState + 事件                   | 侧边栏折叠+激活             | 泛型useState / 事件类型           | Q4 Q9 Q10 Q50           | ⬜   |
-| 3    | Props + 组件组合 + **Responsive** | Header + TabNav + Card      | Props interface / children类型    | Q2 Q5 Q6 Q20 Q35        | ⬜   |
-| 4    | useEffect + 异步                  | NextMatchCard + FixtureList | async/await类型 / AbortController | Q11 Q13 Q36 Q40         | ⬜   |
-| 5    | useRef + useId                    | 搜索框 + 表单控件           | RefObject类型 / 受控vs非受控      | Q7 Q14 Q18              | ⬜   |
-| 6    | useContext + 主题                 | 暗色/亮色切换               | Context泛型 / 自定义Hook类型      | Q8 Q32 Q43              | ⬜   |
-| 7    | useReducer + 复杂状态             | 收件箱过滤+排序             | Discriminated Union / Action类型  | Q12 Q17 Q23             | ⬜   |
-| 8    | memo + useMemo + useCallback      | 虚拟列表性能优化            | FC类型 / 函数类型签名             | Q15 Q16 Q19 Q31         | ⬜   |
-| 9    | Redux Toolkit                     | 收件箱全局状态同步          | RootState / AppDispatch类型       | Q34 Q43                 | ⬜   |
-| 10   | React Router v6 + 懒加载          | 多页面导航                  | RouteObject / lazy类型            | Q29 Q49                 | ⬜   |
-| 11   | 高级模式 + 虚拟DOM深度            | HOC + Error Boundary        | 泛型组件 / 高级类型               | Q21 Q24 Q33 Q41 Q44–Q48 | ⬜   |
-| 12   | Canvas + AI（扩展）               | 战术白板 + 手绘识别         | —                                 | —                       | ⬜   |
+| 阶段 | 核心概念                                  | 构建 UI                     | TypeScript 要点                   | 面试题                  | 状态 |
+| ---- | ----------------------------------------- | --------------------------- | --------------------------------- | ----------------------- | ---- |
+| 0    | 项目初始化 + GitHub                       | 空项目跑起来                | TS 基础类型 + tsconfig            | —                       | ✅   |
+| 1    | JSX + Tailwind + **Flexbox** + **Vitest** | 静态侧边栏                  | interface / type / Props类型      | Q1 Q3                   | 🔄   |
+| 2    | useState + 事件                           | 侧边栏折叠+激活             | 泛型useState / 事件类型           | Q4 Q9 Q10 Q50           | ⬜   |
+| 3    | Props + 组件组合 + **Responsive**         | Header + TabNav + Card      | Props interface / children类型    | Q2 Q5 Q6 Q20 Q35        | ⬜   |
+| 4    | useEffect + 异步                          | NextMatchCard + FixtureList | async/await类型 / AbortController | Q11 Q13 Q36 Q40         | ⬜   |
+| 5    | useRef + useId                            | 搜索框 + 表单控件           | RefObject类型 / 受控vs非受控      | Q7 Q14 Q18              | ⬜   |
+| 6    | useContext + 主题                         | 暗色/亮色切换               | Context泛型 / 自定义Hook类型      | Q8 Q32 Q43              | ⬜   |
+| 7    | useReducer + 复杂状态                     | 收件箱过滤+排序             | Discriminated Union / Action类型  | Q12 Q17 Q23             | ⬜   |
+| 8    | memo + useMemo + useCallback              | 虚拟列表性能优化            | FC类型 / 函数类型签名             | Q15 Q16 Q19 Q31         | ⬜   |
+| 9    | Redux Toolkit                             | 收件箱全局状态同步          | RootState / AppDispatch类型       | Q34 Q43                 | ⬜   |
+| 10   | React Router v6 + 懒加载                  | 多页面导航                  | RouteObject / lazy类型            | Q29 Q49                 | ⬜   |
+| 11   | 高级模式 + 虚拟DOM深度                    | HOC + Error Boundary        | 泛型组件 / 高级类型               | Q21 Q24 Q33 Q41 Q44–Q48 | ⬜   |
+| 12   | Canvas + AI（扩展）                       | 战术白板 + 手绘识别         | —                                 | —                       | ⬜   |
 
 ---
 
@@ -85,7 +85,7 @@ React 18 · TypeScript · Vite · Tailwind CSS v3 · shadcn/ui · Redux Toolkit 
 
 详见 `phase1.md`
 
-**核心概念：** JSX 语法 · Tailwind 工具类 · lucide-react 图标 · **Flexbox 布局基础**
+**核心概念：** JSX 语法 · Tailwind 工具类 · lucide-react 图标 · **Flexbox 布局基础** · **Vitest 测试入门**
 **构建内容：** 18 个导航项的深色静态侧边栏
 **TypeScript：** `interface NavItem` · `LucideIcon` 类型 · 数组类型
 **Flex 要点：**
@@ -94,8 +94,21 @@ React 18 · TypeScript · Vite · Tailwind CSS v3 · shadcn/ui · Redux Toolkit 
 - `flex items-center gap-3` — 每项图标 + 文字横向对齐
 - `mt-auto` — Settings / Exit 推到底部
 - `w-52` 固定宽度（桌面）预留折叠变量
-  **面试题：** Q1（What is React）· Q3（What is JSX）
-  **完成标志：** ⬜ 18 项正确显示，TS 无报错
+
+**测试 & CI：**
+
+- Vitest + @testing-library/react 配置
+- Sidebar render 测试（4 个用例）
+- GitHub Actions：push/PR 自动跑 lint + test
+- README.md CI Badge（动态同步 CI 状态）
+
+**面试题：** Q1（What is React）· Q3（What is JSX）
+**完成标志：**
+
+- ⬜ 18 项正确显示，TS 无报错
+- ⬜ `npm run test:run` 4 个测试通过
+- ⬜ GitHub Actions CI 绿色
+- ⬜ README.md CI Badge 显示绿色
 
 ---
 

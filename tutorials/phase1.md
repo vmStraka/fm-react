@@ -372,14 +372,262 @@ export default App;
 
 ---
 
+## 知识点 6：为什么要测试？
+
+写完组件，立刻为它写测试。这个习惯在 Phase 1 建立，之后每个阶段都沿用。
+
+**测试的价值：**
+
+- 重构时防止回归：改了 Sidebar 内部实现，测试能保证"Home 还在"
+- 充当活文档：测试描述了组件的预期行为
+- CI 自动把关：push 代码时自动跑测试，问题在合并前暴露
+
+**本项目测试工具栈：**
+
+| 工具                            | 作用                                                |
+| ------------------------------- | --------------------------------------------------- |
+| **Vitest**                      | 测试运行器，Vite 原生，速度极快                     |
+| **@testing-library/react**      | 渲染组件 + 按用户视角查询 DOM                       |
+| **@testing-library/user-event** | 模拟真实用户操作（点击、输入等）                    |
+| **@testing-library/jest-dom**   | 扩展断言：`toBeInTheDocument()`、`toHaveClass()` 等 |
+| **jsdom**                       | 在 Node.js 里模拟浏览器 DOM 环境                    |
+
+**核心原则（Testing Library 哲学）：**
+
+> 测试"用户能看到什么"，而不是"组件内部怎么实现"。
+
+```tsx
+// ❌ 测试实现细节（脆弱，重构后容易挂）
+expect(wrapper.state("isCollapsed")).toBe(false);
+
+// ✅ 测试用户视角（健壮）
+expect(screen.getByText("Home")).toBeInTheDocument();
+```
+
+---
+
+## 步骤 6：安装测试依赖
+
+```bash
+npm install -D vitest @testing-library/react @testing-library/user-event @testing-library/jest-dom jsdom
+```
+
+---
+
+## 步骤 7：配置 Vitest
+
+修改 `vite.config.ts`：
+
+```ts
+/// <reference types="vitest" />   ← 顶部加这一行，让 TS 识别 test 配置类型
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  test: {
+    environment: "jsdom", // 用 jsdom 模拟浏览器环境
+    globals: true, // 全局使用 describe/it/expect，无需 import
+    setupFiles: "./src/test/setup.ts",
+  },
+});
+```
+
+新建 `src/test/setup.ts`：
+
+```ts
+import "@testing-library/jest-dom"; // 注册扩展断言（toBeInTheDocument 等）
+```
+
+在 `package.json` 的 `scripts` 中加入：
+
+```json
+"test": "vitest",
+"test:run": "vitest run"
+```
+
+> `test` 是 watch 模式（文件改动自动重跑），`test:run` 是单次运行（CI 用）。
+
+---
+
+## 步骤 8：写第一个测试
+
+新建 `src/components/layout/Sidebar.test.tsx`：
+
+```tsx
+import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import Sidebar from "./Sidebar";
+
+describe("Sidebar", () => {
+  it("渲染后显示 Home 导航项", () => {
+    render(<Sidebar />);
+    expect(screen.getByText("Home")).toBeInTheDocument();
+  });
+
+  it("显示所有 12 个主导航项", () => {
+    render(<Sidebar />);
+    const labels = [
+      "Home",
+      "Inbox",
+      "Squad Planner",
+      "Dynamics",
+      "Tactics",
+      "Squad",
+      "Stats",
+      "Competitions",
+      "Finances",
+      "Transfers",
+      "Schedule",
+      "News",
+    ];
+    labels.forEach((label) => {
+      expect(screen.getByText(label)).toBeInTheDocument();
+    });
+  });
+
+  it("Inbox 显示未读徽标 7", () => {
+    render(<Sidebar />);
+    expect(screen.getByText("7")).toBeInTheDocument();
+  });
+
+  it("底部显示 Settings 和 Exit", () => {
+    render(<Sidebar />);
+    expect(screen.getByText("Settings")).toBeInTheDocument();
+    expect(screen.getByText("Exit")).toBeInTheDocument();
+  });
+});
+```
+
+运行测试：
+
+```bash
+npm test          # watch 模式，开发时用
+npm run test:run  # 单次运行，CI 用
+```
+
+**常用查询方法速查：**
+
+| 方法                    | 用途                   | 找不到时  |
+| ----------------------- | ---------------------- | --------- |
+| `getByText('Home')`     | 按文字查找，必须存在   | 抛错      |
+| `queryByText('Home')`   | 按文字查找，可以不存在 | 返回 null |
+| `getByRole('button')`   | 按语义角色查找         | 抛错      |
+| `getAllByText(/Home/i)` | 查找所有匹配项         | 返回数组  |
+
+---
+
+## 步骤 9：配置 GitHub Actions CI
+
+新建 `.github/workflows/ci.yml`：
+
+```yaml
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test:run
+```
+
+**触发时机：**
+
+- push 到 `main` 分支时自动运行
+- 创建 PR 时自动运行，合并前必须 CI 绿色
+
+**`npm ci` vs `npm install` 的区别：**
+
+- `npm ci` 严格按 `package-lock.json` 安装，速度快，适合 CI 环境
+- `npm install` 会更新 lock 文件，适合本地开发
+
+push 到 GitHub 后，在仓库的 **Actions** 标签页可以看到 workflow 运行状态。
+
+### 步骤 10：在 README.md 加 CI Badge
+
+CI workflow 跑通后，把状态 Badge 加到 `README.md` 顶部，让项目状态一眼可见：
+
+```markdown
+# FM React
+
+![CI](https://github.com/你的用户名/fm-react/actions/workflows/ci.yml/badge.svg)
+![License](https://img.shields.io/badge/license-MIT-blue)
+```
+
+把 `你的用户名` 替换成你的 GitHub 用户名即可。
+
+**Badge 工作原理：**
+
+- CI Badge 直接读 GitHub Actions 运行结果，CI 绿 → Badge 绿，CI 红 → Badge 红，零维护
+- License Badge 是静态的，`shields.io` 渲染，手动填写
+
+**两类 Badge 策略：**
+
+| 类型             | 示例                                | 维护方式                                   |
+| ---------------- | ----------------------------------- | ------------------------------------------ |
+| 动态（自动同步） | Stars、Forks、CI 状态、最后提交时间 | shields.io / GitHub API 实时拉取，无需维护 |
+| 静态（手动维护） | License、技术栈版本、功能数量       | 手动更新或写 CI 脚本自动替换               |
+
+---
+
+## 面试题验收
+
+### Q1: What is React? Describe its benefits.
+
+**要点：**
+
+- React 是用于构建用户界面的 JavaScript **库**（不是框架）
+- 核心思想：UI = f(state)，状态变化驱动 UI 更新
+- 主要优点：
+  - **组件化**：UI 拆分为可复用的独立单元
+  - **声明式**：描述"界面应该是什么样子"，而非"如何操作 DOM"
+  - **虚拟 DOM**：批量计算差异，减少真实 DOM 操作（Phase 11 深入）
+  - **单向数据流**：数据从父到子流动，易于追踪
+
+### Q3: What is JSX and how does it work?
+
+**要点：**
+
+- JSX 是 JavaScript 的语法糖，允许在 JS 中写类似 HTML 的结构
+- 构建工具（Vite/Babel）在编译时将 JSX 转换为 `React.createElement()` 调用
+- JSX 不是字符串，不是 HTML，是描述 UI 结构的 JS 表达式
+- 浏览器本身不理解 JSX，必须经过编译
+
+---
+
 ## 完成检查
 
 - ⬜ 侧边栏在深色背景上正确显示 18 个导航项
 - ⬜ Inbox 项显示红色数字徽标 `7`
 - ⬜ Settings / Exit 在侧边栏最底部
 - ⬜ `npm run lint` 无报错，TS 无红线
+- ⬜ `npm run test:run` 4 个测试全部通过
+- ⬜ push 到 GitHub 后 Actions 标签页 CI 绿色
+- ⬜ README.md 顶部 CI Badge 显示绿色
 - ⬜ 能解释 `interface NavItem` 中每个字段的类型含义
 - ⬜ 能解释为什么 `key={item.path}` 比 `key={index}` 好
+- ⬜ 能解释 `getByText` 和 `queryByText` 的区别
 
 ---
 
